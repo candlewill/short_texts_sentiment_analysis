@@ -45,8 +45,6 @@ def analysis_result(predict, true):
     plt.tight_layout()
     plt.show()
 
-
-if __name__ == "__main__":
-    predict = load_pickle('./data/predict_labels/predict_labels.p')
-    _, true_labels = load_test_data()
-    analysis_result(predict, true_labels)
+predict = load_pickle('./data/predict_labels/predict_labels.p')
+_, true_labels = load_test_data()
+analysis_result(predict, true_labels)
