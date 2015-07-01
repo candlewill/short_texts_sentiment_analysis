@@ -4,6 +4,7 @@ import logging
 import csv
 from parameters import parameters
 import pickle
+import os
 
 # configure the logging
 logging.basicConfig(level=logging.INFO)
@@ -39,3 +40,14 @@ def load_pickle(filename):
     out = pickle.load(open(filename, "rb"))
     return out
     logging.info('Load pickle data complete')
+
+def load_anew():
+    data_dir='./data/lexicon/'
+    with open(os.path.join(data_dir, "anew_seed.txt"), 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter='\t')
+        words, arousal, valence = [], [], []
+        for line in reader:
+            words.append(line[0])
+            arousal.append(float(line[1]))
+            valence.append(float(line[2]))
+    return words, arousal, valence

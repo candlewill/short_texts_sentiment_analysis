@@ -52,4 +52,4 @@ def kNN(train_data, train_labels, test):
 train_data = load_pickle('./data/transformed_data/transformed_train.p')
 test = load_pickle('./data/transformed_data/transformed_test.p')
 _, train_labels = load_train_data()
-kNN(train_data, train_labels, test)
+mNB(train_data, train_labels, test)
