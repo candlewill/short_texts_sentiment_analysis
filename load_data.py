@@ -48,6 +48,7 @@ def load_pickle(filename):
 
 
 def load_anew():
+    logging.info('Loading anew lexicon')
     data_dir = './data/lexicon/'
     with open(os.path.join(data_dir, "anew_seed.txt"), 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter='\t')
@@ -56,10 +57,12 @@ def load_anew():
             words.append(line[0])
             arousal.append(float(line[1]))
             valence.append(float(line[2]))
+    logging.info('Loading anew lexicon completed')
     return words, arousal, valence
 
 
 def load_extend_anew(D=False):
+    logging.info('Loading extend_anew lexicon')
     data_dir = './data/lexicon/'
     with open(os.path.join(data_dir, "extend_anew.csv"), 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -72,6 +75,7 @@ def load_extend_anew(D=False):
             valence.append(float(line[2]))
             if D == True:
                 dominance.append(float(line[8]))
+    logging.info('Loading extend_anew lexicon complete')
     if D == True:
         return words, arousal, valence, dominance
     else:
