@@ -19,9 +19,10 @@ if __name__ == "__main__":
     unigram = StemmedTfidfVectorizer(**vectorizer_param)
     anew = anew_vectorizer()
     pct = punctuation_estimator()
-    # combined_features =FeatureUnion([('unigram',unigram),('anew',anew)])
-    log_state('combine unigram and punctuation features')
-    combined_features =FeatureUnion([('unigram',unigram),('pct',pct)])
+    log_state('combine unigram and anew features')
+    combined_features =FeatureUnion([('unigram',unigram),('anew',anew)])
+    # log_state('combine unigram and punctuation features')
+    # combined_features =FeatureUnion([('unigram',unigram),('pct',pct)])
     texts, _=load_train_data('Sentiment140')
 
     transformed_train=combined_features.fit_transform(texts)

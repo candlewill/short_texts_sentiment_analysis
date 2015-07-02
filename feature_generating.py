@@ -22,6 +22,7 @@ vectorizer_param={'preprocessor': preprocessor, 'ngram_range': parameters['ngram
 # if __name__ == "__main__":
 log_state('Start generating features')
 log_state((sorted(list(vectorizer_param.items()))))
+log_state('Training data size: '+str(parameters['test_data_size']))
 vectorizer = StemmedTfidfVectorizer(**vectorizer_param)
 train_type = 'Sentiment140'
 texts, _=load_train_data(train_type)
