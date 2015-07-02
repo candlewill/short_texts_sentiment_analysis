@@ -1,6 +1,7 @@
 __author__ = 'NLP-PC'
 # encoding: utf-8
 import re, const_values as const
+import string
 
 def preprocessor(tweet):
     emo_repl_order = const.emo_repl_order
@@ -10,10 +11,15 @@ def preprocessor(tweet):
     tweet = tweet.lower()
     for k in emo_repl_order:
         tweet = tweet.replace(k, emo_repl[k])
-    tweet = tweet.replace("-", " ").replace("_", " ").replace('"', '').replace(".", ' ').replace(',', '').replace(';',
-                                                                                                                 '').strip()
+
     for r, repl in re_repl.items():
         tweet = re.sub(r, repl, tweet)
+
+    # remove all punctuation
+    for c in string.punctuation:
+        tweet= tweet.replace(c, " ")
+    tweet = re.sub(r" +", " ", tweet).strip()
+
     return tweet
 
 if __name__ == '__main__':

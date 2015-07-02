@@ -7,7 +7,7 @@ from load_data import load_pickle, load_test_data
 from matplotlib import pyplot as plt
 from logger_manager import log_performance
 
-def analysis_result(predict, true):
+def analysis_result(predict, true, figure=False):
     f1 = f1_score(true, predict, average='binary')
     precision_binary, recall_binary, fbeta_score_binary, _ = precision_recall_fscore_support(true, predict,
                                                                                              average='binary')
@@ -15,7 +15,8 @@ def analysis_result(predict, true):
     print('正确率(Accuracy)：%.3f\nF值(Macro-F score)：%.3f' % (accuracy, f1))
     print('精确度(Precision):%.3f\n召回率：%.3f\nF值: %.3f' % (precision_binary, recall_binary, fbeta_score_binary))
     log_performance(accuracy, f1,precision_binary, recall_binary, len(true))
-
+    if figure==False:
+        return
     # 画图
     n_groups = 5
     values = (accuracy, f1, precision_binary, recall_binary, fbeta_score_binary)

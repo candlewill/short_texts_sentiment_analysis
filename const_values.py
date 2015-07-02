@@ -76,8 +76,8 @@ re_repl = {
     #利用正则表达式，替换其他
     r'((www\.[^\s]+)|(https?://[^\s]+))':'url', #www.baidu.com or http: -> url
     r'@[^\s]+': 'someone', # @someone -> someone
-    r'#([^\s]+)':r'\1', # #topic -> topic
+    r'#([^\s]+)':r'\1', # # topic -> topic
     r"(.)\1{1,}":r"\1\1", # noooooope -> noope
-    r" +": " ", # 删去多余空格
+    # r" +": " ", # 删去多余空格
     r"\bhttp[^\s]+\b":'url', #以http开始的单词 ->url
 }
