@@ -6,6 +6,7 @@ from load_data import load_extend_anew
 from statistics import mean
 from nltk import word_tokenize
 
+
 class anew_vectorizer(BaseEstimator):
     # 返回特征名称列表（list），包含用transform()返回的所有的特征
     def __init__(self):
@@ -61,8 +62,58 @@ class anew_vectorizer(BaseEstimator):
 
         result = np.array(
             [max_valence, avg_valence, min_valence, max_arousal, avg_arousal, min_arousal]).T
-        return result/self.max
+        return result / self.max
 
         # fit_transform is no need to be completed, watch out!
         # def fit_transform(self, documents):
         #     return self.fit(documents).transform(documents)
+
+
+class strength_vectorizer(BaseEstimator):
+    # 返回特征名称列表（list），包含用transform()返回的所有的特征
+    def __init__(self):
+        self.words, _, self.valence = load_extend_anew()
+        self.stemmer = nltk.stem.SnowballStemmer('english')
+        self.max = 9
+        self.stemmed_dict = [self.stemmer.stem(w) for w in self.words]
+
+    def get_feature_names(self):
+        return np.array(
+            ['max_valence', 'avg_valence', 'min_valence']
+        )
+
+    # As we are not implementing a classifier, we can ignore this one and simply return self.
+    def fit(self, documents, y=None):
+        return self
+
+    def _get_VA(self, d):
+        print('Stemming, Still working...')
+        english_stemmer = self.stemmer
+        stemmed_sent = [english_stemmer.stem(w) for w in word_tokenize(d)]
+        valence_value = []
+        words, valence = self.words, self.valence
+        overlapping_words = (set(stemmed_sent) & set(self.stemmed_dict))
+        if len(overlapping_words) != 0:
+            for word in overlapping_words:
+                ind = self.stemmed_dict.index(word)
+                valence_value.append(valence[ind])
+            max_valence = max(valence)
+            avg_valence = mean(valence)
+            min_valence = min(valence)
+        else:
+            # if nothing mathes, the default value is 4.5
+            default = 4.5
+            max_valence = default
+            avg_valence = default
+            min_valence = default
+        return np.array([max_valence, avg_valence, min_valence])
+
+    # This returns numpy.array(), containing an array of shape (len(documents), len(get_feature_names)).
+    # This means that for every document in documents, it has to return a value for every feature name in get_feature_names().
+    def transform(self, documents):
+        max_valence, avg_valence, min_valence = np.array(
+            [self._get_VA(d) for d in documents]).T
+
+        result = np.array(
+            [max_valence, avg_valence, min_valence]).T
+        return result / self.max
