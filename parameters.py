@@ -10,5 +10,5 @@ parameters = {
     'TF_binary': True,  # 是否使用TF-IDF加权
     'norm': 'l1',  # 是否规格化
     'sublinear_tf': True,  # 是否对TF使用log(1+x)
-    'max_features': 500,
+    'max_features': 200,
 }

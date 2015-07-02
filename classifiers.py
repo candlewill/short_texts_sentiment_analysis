@@ -6,12 +6,13 @@ import logging
 from sklearn import svm
 from sklearn import linear_model
 from sklearn.neighbors import KNeighborsClassifier
-
+from logger_manager import log_state
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
 def mNB(train_data, train_labels, test):
+    log_state('Use multinomial Naive bayes classifier')
     clf = MultinomialNB()
     clf.fit(train_data, train_labels)
     predict_labels = clf.predict(test)
@@ -23,6 +24,7 @@ def mNB(train_data, train_labels, test):
 
 
 def svm_classify(train_data, train_labels, test):
+    log_state('Use SVM classifier')
     clf = svm.SVC(C=5.0, kernel='linear')
     clf.fit(train_data, train_labels)
     predict_labels = clf.predict(test)
@@ -32,6 +34,7 @@ def svm_classify(train_data, train_labels, test):
 
 
 def logit(train_data, train_labels, test):
+    log_state('Use logistic regression classifier')
     clf = linear_model.LogisticRegression(C=1e5)
     clf.fit(train_data, train_labels)
     predict_labels = clf.predict(test)
@@ -41,6 +44,7 @@ def logit(train_data, train_labels, test):
 
 
 def kNN(train_data, train_labels, test):
+    log_state('Use kNN classifier')
     clf = KNeighborsClassifier(n_neighbors=5)
     clf.fit(train_data, train_labels)
     predict_labels = clf.predict(test)
