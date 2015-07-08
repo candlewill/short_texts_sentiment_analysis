@@ -12,7 +12,7 @@ from os_check import get_os_name
 # configure the logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+# test
 
 def load_train_data(data_type='Sentiment140'):
     logging.info('Start loading data')
