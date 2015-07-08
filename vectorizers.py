@@ -19,7 +19,7 @@ def punctuation_estimator():
     v = TfidfVectorizer(analyzer=analyzer, binary=True, norm='l1', use_idf=False, sublinear_tf=True, max_df=0.5)
     return v
 
-def anew_estimator(words=None):
+def anew_estimator():
     words, _, _ =load_extend_anew()
     return TfidfVectorizer(max_features=1000, vocabulary=words, binary=True, norm='l1', use_idf=False, sublinear_tf=True, max_df=0.5)
 

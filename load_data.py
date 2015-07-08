@@ -7,6 +7,7 @@ import pickle
 import os
 from gensim.models import Word2Vec
 import time as time
+from os_check import get_os_name
 
 # configure the logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -19,11 +20,15 @@ def load_train_data(data_type='Sentiment140'):
     labels = []
     if data_type == 'Sentiment140':
         if parameters['test_data_size'] == 160000:
-            file_name = 'C:/Corpus/training.csv'
+            os_name = get_os_name()
+            if os_name == "windows":
+                file_name = 'C:/Corpus/training.csv'
+            elif os_name == 'ubuntu':
+                file_name = '/home/hs/Data/Corpus/training.csv'
         else:
             file_name = './data/traindata/Sentiment140/' + str(parameters['test_data_size']) + '.csv'
         inpTweets = csv.reader(
-            open(file_name, 'rt', encoding='ISO-8859-1'), # Please watch out the encoding format
+            open(file_name, 'rt', encoding='ISO-8859-1'),  # Please watch out the encoding format
             delimiter=',')
         for row in inpTweets:
             sentiment = (1 if row[0] == '4' else 0)
@@ -87,12 +92,20 @@ def load_extend_anew(D=False):
     else:
         return words, arousal, valence
 
+
 def load_word_embedding(data_name='google_news', data_type='bin'):
     logger.info('Start load word2vec word embedding')
-    file1 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin.gz'
-    file2 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin.gz'
-    file3 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin'
-    file4 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin'
+    os_name = get_os_name()
+    if os_name == "windows":
+        file1 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin.gz'
+        file2 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin.gz'
+        file3 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin'
+        file4 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin'
+    elif os_name == 'ubuntu':
+        file1 = '/home/hs/Data/Word_Embeddings/GoogleNews-vectors-negative300.bin.gz'
+        file2 = '/home/hs/Data/Word_Embeddings/freebase-vectors-skipgram1000.bin.gz'
+        file3 = '/home/hs/Data/Word_Embeddings/google_news.bin'
+        file4 = '/home/hs/Data/Word_Embeddings/freebase.bin'
     if data_name == 'google_news':
         if data_type == 'bin':
             model = Word2Vec.load_word2vec_format(file3, binary=True)
