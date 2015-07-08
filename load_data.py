@@ -5,9 +5,11 @@ import csv
 from parameters import parameters
 import pickle
 import os
+from gensim.models import Word2Vec
+import time as time
 
 # configure the logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -16,8 +18,12 @@ def load_train_data(data_type='Sentiment140'):
     texts = []
     labels = []
     if data_type == 'Sentiment140':
+        if parameters['test_data_size'] == 160000:
+            file_name = 'C:/Corpus/training.csv'
+        else:
+            file_name = './data/traindata/Sentiment140/' + str(parameters['test_data_size']) + '.csv'
         inpTweets = csv.reader(
-            open('./data/traindata/Sentiment140/' + str(parameters['test_data_size']) + '.csv', 'rt', encoding='utf8'),
+            open(file_name, 'rt', encoding='ISO-8859-1'), # Please watch out the encoding format
             delimiter=',')
         for row in inpTweets:
             sentiment = (1 if row[0] == '4' else 0)
@@ -80,3 +86,54 @@ def load_extend_anew(D=False):
         return words, arousal, valence, dominance
     else:
         return words, arousal, valence
+
+def load_word_embedding(data_name='google_news', data_type='bin'):
+    logger.info('Start load word2vec word embedding')
+    file1 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin.gz'
+    file2 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin.gz'
+    file3 = 'D:/Word_Embeddings/GoogleNews-vectors-negative300.bin'
+    file4 = 'D:/Word_Embeddings/freebase-vectors-skipgram1000.bin'
+    if data_name == 'google_news':
+        if data_type == 'bin':
+            model = Word2Vec.load_word2vec_format(file3, binary=True)
+        else:  # load .bin.gz data
+            model = Word2Vec.load_word2vec_format(file1, binary=True)
+    else:  # load freebase
+        if data_type == 'bin':
+            model = Word2Vec.load_word2vec_format(file4, binary=True)
+        else:
+            model = Word2Vec.load_word2vec_format(file2, binary=True)
+
+    # using gzipped/bz2 input works too, no need to unzip:
+    logging.info('Loading word embedding complete')
+    return model
+
+
+if __name__ == "__main__":
+    st = time.time()
+    # examplenshu
+    model = load_word_embedding()
+
+    print(model['computer'])
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
+    # cosine similarity
+    print(model.most_similar(positive=['woman', 'king'], negative=['man'], topn=1))
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
+    print(model.doesnt_match("breakfast cereal dinner lunch".split()))
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
+    print(model.similarity('woman', 'man'))
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
+    # Find the top-N most similar words, using the multiplicative combination objective proposed by Omer Levy and Yoav Goldberg in [4]. Positive words still contribute positively towards the similarity, negative words negatively, but with less susceptibility to one large distance dominating the calculation.
+    # In the common analogy-solving case, of two positive and one negative examples, this method is equivalent to the “3CosMul” objective (equation (4)) of Levy and Goldberg.
+    # Additional positive or negative examples contribute to the numerator or denominator, respectively – a potentially sensible but untested extension of the method. (With a single positive example, rankings will be the same as in the default most_similar.)
+    print(model.most_similar_cosmul(positive=['baghdad', 'england'], negative=['london'], topn=10))
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
+    # Compute cosine similarity between two sets of words.
+    print(model.n_similarity(['sushi', 'shop'], ['japanese', 'restaurant']))
+    elapsed_time = time.time() - st
+    print("Elapsed time: %.3fmin" % (elapsed_time / 60))
