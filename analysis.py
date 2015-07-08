@@ -32,6 +32,7 @@ def analysis_result(predict, true, figure=False):
     plt.tight_layout()
     plt.show()
 
-predict = load_pickle('./data/predict_labels/predict_labels.p')
-_, true_labels = load_test_data()
-analysis_result(predict, true_labels)
+if __name__ == "__main__":
+    predict = load_pickle('./data/predict_labels/predict_labels.p')
+    _, true_labels = load_test_data()
+    analysis_result(predict, true_labels)

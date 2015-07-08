@@ -20,7 +20,7 @@ def mNB(train_data, train_labels, test):
     dump_picle(predict_labels, './data/predict_labels/predict_labels.p')
     dump_picle(predict_proba, './data/predict_labels/predict_proba.p')
     logger.info('Classifier training complete, saved predict labels to pickle')
-    return
+    return predict_labels
 
 
 def svm_classify(train_data, train_labels, test):
@@ -52,8 +52,8 @@ def kNN(train_data, train_labels, test):
     logger.info('kNN classifier training complete, saved predict labels to pickle')
     return
 
-
-train_data = load_pickle('./data/transformed_data/transformed_train.p')
-test = load_pickle('./data/transformed_data/transformed_test.p')
-_, train_labels = load_train_data()
-mNB(train_data, train_labels, test)
+if __name__ == "__main__":
+    train_data = load_pickle('./data/transformed_data/transformed_train.p')
+    test = load_pickle('./data/transformed_data/transformed_test.p')
+    _, train_labels = load_train_data()
+    mNB(train_data, train_labels, test)
