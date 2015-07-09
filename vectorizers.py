@@ -17,14 +17,18 @@ def punctuation_estimator():
 
     analyzer = get_punctuations
     # v = CountVectorizer(analyzer=analyzer, binary=True)
-    v = TfidfVectorizer(analyzer=analyzer, binary=True, norm='l1', use_idf=False, sublinear_tf=True, max_df=0.5)
+    v = TfidfVectorizer(analyzer=analyzer, binary=True, norm='l1', use_idf=False, sublinear_tf=True, max_df=1)
     return v
 
 
 def anew_estimator(words=None):
+    english_stemmer = nltk.stem.SnowballStemmer('english')
+    words, _, _ = load_extend_anew()
+    words = [english_stemmer.stem(w) for w in words]
+    words = set(words)
     # Note: the max_features parameter is ignored if vocabulary is not None
     vectorizer = TfidfVectorizer(vocabulary=words, binary=True, norm='l1', use_idf=False,
-                           sublinear_tf=True, max_df=0.5)
+                                 sublinear_tf=True, max_df=0.5)
     return vectorizer
 
 

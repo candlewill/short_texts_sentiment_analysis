@@ -138,7 +138,7 @@ def load_processed_data(data_type = 'train'):
         text, label = [], []
         for line in reader:
             text.append(line[1])
-            label.append(line[0])
+            label.append(int(line[0]))
     logging.info('Load Data Completed')
     return text, label
 

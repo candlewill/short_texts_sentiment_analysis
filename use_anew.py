@@ -1,3 +1,4 @@
+__author__ = 'hs'
 __author__ = 'NLP-PC'
 import feature_generating
 import classifiers
@@ -11,12 +12,12 @@ from classifiers import mNB
 
 print('Start')
 vectorizer = anew_estimator()
-train_type = 'Sentiment140'
-texts, train_labels = load_train_data(train_type)
+texts, train_labels = load_processed_data()
 transformed_train = vectorizer.fit_transform(texts)
-testdata, true_labels = load_test_data()
+testdata, true_labels = load_processed_data(data_type='test')
 transformed_test = vectorizer.transform(testdata)
 
 predict = mNB(transformed_train, train_labels, transformed_test)
+
 
 analysis_result(predict, true_labels)

@@ -295,3 +295,33 @@
 2015-07-08 21:43:55,552 - logger_manager - INFO - [('analyzer', 'word'), ('binary', True), ('max_df', 0.5), ('max_features', 200), ('min_df', 0), ('ngram_range', (1, 1)), ('norm', 'l1'), ('preprocessor', <function preprocessor at 0x7fdcea48aea0>), ('sublinear_tf', True)]
 2015-07-08 21:43:55,552 - logger_manager - INFO - Training data size: 160000
 2015-07-08 21:53:52,528 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:18:14,281 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:19:38,507 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:20:55,054 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:22:57,973 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:23:05,190 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:25:37,766 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:29:03,527 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:29:13,331 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:29:23,826 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:29:33,231 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:30:30,020 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:30:54,656 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:31:12,143 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:35:10,233 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:35:21,136 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:35:29,592 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:35:47,508 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:36:21,111 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:36:30,004 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:37:25,927 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:37:30,424 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:41:55,484 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:49:55,116 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:50:11,695 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:53:52,657 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:54:07,071 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:54:18,009 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:54:27,230 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:55:56,124 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-09 19:56:58,422 - logger_manager - INFO - Use multinomial Naive bayes classifier
