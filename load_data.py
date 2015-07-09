@@ -120,14 +120,20 @@ def load_word_embedding(data_name='google_news', data_type='bin'):
     logging.info('Loading word embedding complete')
     return model
 
-def load_processed_data(filename):
+def load_processed_data(data_type = 'train'):
     logging.info('Start Loading Data')
-    os_name = get_os_name()
-    if os_name == 'windows':
-        file_dir = 'C:/Corpus/'
-    elif os_name == 'ubuntu':
-        file_dir = '/home/hs/Data/'
-    with open(file_dir+filename, 'r', encoding= 'ISO-8859-1') as csvfile:
+    if data_type == 'train':
+        if parameters['test_data_size'] == 160000:
+            os_name = get_os_name()
+            if os_name == "windows":
+                file_name = 'C:/Corpus/preprocessed_training_data_1600000.csv'
+            elif os_name == 'ubuntu':
+                file_name = '/home/hs/Data/Corpus/preprocessed_training_data_1600000.csv'
+        else:
+            file_name = './data/traindata/Sentiment140/pre-processed/preprocessed_training_data_' + str(parameters['test_data_size']) + '.csv'
+    elif data_type == 'test':
+        file_name = './data/testdata/preprocessed_test_data_359.csv'
+    with open(file_name, 'r', encoding= 'ISO-8859-1') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         text, label = [], []
         for line in reader:
@@ -135,11 +141,6 @@ def load_processed_data(filename):
             label.append(line[0])
     logging.info('Load Data Completed')
     return text, label
-
-# t, l = load_processed_data('preprocessed_training_data_10000.csv')
-# print(t)
-# exit()
-
 
 if __name__ == "__main__":
     st = time.time()
