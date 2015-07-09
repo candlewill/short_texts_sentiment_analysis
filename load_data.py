@@ -12,7 +12,6 @@ from os_check import get_os_name
 # configure the logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
-# test
 
 def load_train_data(data_type='Sentiment140'):
     logging.info('Start loading data')
@@ -137,9 +136,9 @@ def load_processed_data(filename):
     logging.info('Load Data Completed')
     return text, label
 
-t, l = load_processed_data('preprocessed_training_data_10000.csv')
-print(t)
-exit()
+# t, l = load_processed_data('preprocessed_training_data_10000.csv')
+# print(t)
+# exit()
 
 
 if __name__ == "__main__":

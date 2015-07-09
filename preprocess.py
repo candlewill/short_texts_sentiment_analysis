@@ -25,7 +25,7 @@ def preprocessor(tweet):
     tweet = re.sub(r" +", " ", tweet).strip()
 
     english_stemmer = nltk.stem.SnowballStemmer('english')
-    tweet = [english_stemmer.stem(w) for w in word_tokenize(tweet)]
+    tweet = ' '.join([english_stemmer.stem(w) for w in word_tokenize(tweet)])
 
     return tweet
 
@@ -57,7 +57,8 @@ def preprocess_tweeets(tweets_list, tweets_labels, filename):
 
 
 if __name__ == '__main__':
+
     from load_data import load_train_data
     texts, labels = load_train_data()
     processed_texts = []
-    preprocess_tweeets(texts, labels, 'preprocessed_training_data_10000.csv')
+    preprocess_tweeets(texts, labels, 'preprocessed_training_data_160000.csv')

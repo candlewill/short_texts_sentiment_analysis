@@ -1,5 +1,3 @@
-a=['1','w','fe']
-b=['d','a','as','faw']
-
-for a1, b1 in zip(a,b):
-    print(a1, b1)
+a={'a':('xyz','feae'),'b':'abcd'}
+print('x' in ''.join(a['a']))
+print(a)
