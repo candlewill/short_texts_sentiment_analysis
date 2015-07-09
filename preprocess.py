@@ -58,6 +58,11 @@ def preprocess_tweeets(tweets_list, tweets_labels, filename):
 
 if __name__ == '__main__':
 
+    from load_data import load_test_data
+    test_texts, test_labels =load_test_data()
+    preprocess_tweeets(test_texts, test_labels, 'preprocessed_test_data_359.csv')
+    exit()
+
     from load_data import load_train_data
     texts, labels = load_train_data()
     processed_texts = []
