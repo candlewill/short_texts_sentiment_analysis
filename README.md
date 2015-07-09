@@ -1,7 +1,7 @@
 # Sentiment Analysis Using Clustering
 ## Sentiment Analysis for short texts
 
-This project is written with python, to predict the sentiment polarity of short texts.
+This project is written with python 3.4, to predict the sentiment polarity of short texts.
 
   - Short texts specified
   - Tweets
@@ -12,7 +12,7 @@ Just as somebody says:
 > Traditionally it's been a problem that researchers did not have enough spatial data to answer useful questions or build compelling visualizations. Today, however, the problem is often that we have too much data. Too many scattered points on a map can overwhelm a viewer looking for a simple narrative. Furthermore, rendering a javascript web map (like Leaflet) with millions of data points on a mobile device can swamp the processor and be unresponsive.
 
 ### Version
-0.9
+0.9.89
 
 
 License
