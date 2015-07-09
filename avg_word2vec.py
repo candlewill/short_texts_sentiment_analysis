@@ -1,30 +1,22 @@
 from sklearn.cross_validation import train_test_split
 from gensim.models.word2vec import Word2Vec
-from load_data import load_train_data
+from load_data import load_train_data, load_processed_data
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
-texts, sentiemnt = load_train_data()
-x_train, x_test, y_train, y_test = train_test_split(np.array(texts), np.array(sentiemnt), test_size=0.2)
+# The following skills is useful
+# train_test_split(np.array(texts), np.array(sentiemnt), test_size=0.2)
+
+x_train, y_train = load_processed_data()
+x_test, y_test = load_processed_data(data_type='test')
 
 from preprocess import preprocessor as preprocess
-# Do some very minor text preprocessing
-def cleanText(corpus):
-    # corpus = [z.lower().replace('\n', '').split() for z in corpus]
-    corpus = [preprocess(z) for z in corpus]
-    return corpus
 
-
-x_train = cleanText(x_train)
-x_test = cleanText(x_test)
-
-n_dim = 300
-
-# I had the same problem with 64bit machine. I think it is related to the version of Python (32 bit vs 64 bit). To solve the problem in this project, I passed my own hash function as a parameter to word2vec constructor:
-def hash32(value):
-    return hash(value) & 0xffffffff
+n_dim = 100
+scaling = False
 
 # Initialize model and build vocab
-imdb_w2v = Word2Vec(size=n_dim, min_count=10, hashfxn=hash32)
+imdb_w2v = Word2Vec(size=n_dim, min_count=10)
 imdb_w2v.build_vocab(x_train)
 
 # Train the model over train_reviews (this may take several minutes)
@@ -48,35 +40,23 @@ def buildWordVector(text, size):
 from sklearn.preprocessing import scale
 
 train_vecs = np.concatenate([buildWordVector(z, n_dim) for z in x_train])
-train_vecs = scale(train_vecs)
+if scaling == True:
+    train_vecs = scale(train_vecs)
 
 # Train word2vec on test tweets
-imdb_w2v.train(x_test)
+# imdb_w2v.train(x_test)
 
 # Build test tweet vectors then scale
 test_vecs = np.concatenate([buildWordVector(z, n_dim) for z in x_test])
-test_vecs = scale(test_vecs)
+if scaling == True:
+    test_vecs = scale(test_vecs)
 
+min_max_scaler = MinMaxScaler()
+train_vecs = min_max_scaler.fit_transform(train_vecs)
+test_vecs = min_max_scaler.fit_transform(test_vecs)
 # Use classification algorithm (i.e. Stochastic Logistic Regression) on training set, then assess model performance on test set
-from sklearn.linear_model import SGDClassifier
+from classifiers import gNB, mNB
+from analysis import analysis_result
 
-lr = SGDClassifier(loss='log', penalty='l1')
-lr.fit(train_vecs, y_train)
-
-print('Test Accuracy: %.2f' % lr.score(test_vecs, y_test))
-
-# Create ROC curve
-from sklearn.metrics import roc_curve, auc
-import matplotlib.pyplot as plt
-
-pred_probas = lr.predict_proba(test_vecs)[:, 1]
-
-fpr, tpr, _ = roc_curve(y_test, pred_probas)
-roc_auc = auc(fpr, tpr)
-plt.plot(fpr, tpr, label='area = %.2f' % roc_auc)
-plt.plot([0, 1], [0, 1], 'k--')
-plt.xlim([0.0, 1.0])
-plt.ylim([0.0, 1.05])
-plt.legend(loc='lower right')
-
-plt.show()
+pre = mNB(train_vecs, y_train, test_vecs)
+analysis_result(pre, y_test)

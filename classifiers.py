@@ -7,21 +7,35 @@ from sklearn import svm
 from sklearn import linear_model
 from sklearn.neighbors import KNeighborsClassifier
 from logger_manager import log_state
+from sklearn.naive_bayes import GaussianNB
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def mNB(train_data, train_labels, test):
+def mNB(train_data, train_labels, test, save_result=False):
     log_state('Use multinomial Naive bayes classifier')
     clf = MultinomialNB()
     clf.fit(train_data, train_labels)
     predict_labels = clf.predict(test)
     predict_proba = clf.predict_proba(test)
-    dump_picle(predict_labels, './data/predict_labels/predict_labels.p')
-    dump_picle(predict_proba, './data/predict_labels/predict_proba.p')
+    if save_result == True:
+        dump_picle(predict_labels, './data/predict_labels/predict_labels.p')
+        dump_picle(predict_proba, './data/predict_labels/predict_proba.p')
     logger.info('Classifier training complete, saved predict labels to pickle')
     return predict_labels
 
+
+def gNB(train_data, train_labels, test, save_result=False):
+    log_state('Use Gaussian Naive Bayes classifier')
+    clf = GaussianNB()
+    clf.fit(train_data, train_labels)
+    predict_labels = clf.predict(test)
+    predict_proba = clf.predict_proba(test)
+    if save_result == True:
+        dump_picle(predict_labels, './data/predict_labels/predict_labels.p')
+        dump_picle(predict_proba, './data/predict_labels/predict_proba.p')
+    logger.info('Classifier training complete, saved predict labels to pickle')
+    return predict_labels
 
 def svm_classify(train_data, train_labels, test):
     log_state('Use SVM classifier')
