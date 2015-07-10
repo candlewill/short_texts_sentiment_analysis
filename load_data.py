@@ -120,19 +120,36 @@ def load_word_embedding(data_name='google_news', data_type='bin'):
     logging.info('Loading word embedding complete')
     return model
 
-def load_processed_data(data_type = 'train'):
+
+def load_processed_data(data_type='train', stem=True):
     logging.info('Start Loading Data')
-    if data_type == 'train':
-        if parameters['test_data_size'] == 160000:
-            os_name = get_os_name()
-            if os_name == "windows":
-                file_name = 'C:/Corpus/preprocessed_training_data_1600000.csv'
-            elif os_name == 'ubuntu':
-                file_name = '/home/hs/Data/Corpus/preprocessed_training_data_1600000.csv'
-        else:
-            file_name = './data/traindata/Sentiment140/pre-processed/preprocessed_training_data_' + str(parameters['test_data_size']) + '.csv'
-    elif data_type == 'test':
-        file_name = './data/testdata/preprocessed_test_data_359.csv'
+    if stem == True:
+        if data_type == 'train':
+            if parameters['test_data_size'] == 160000:
+                os_name = get_os_name()
+                if os_name == "windows":
+                    file_name = 'C:/Corpus/preprocessed_training_data_1600000.csv'
+                elif os_name == 'ubuntu':
+                    file_name = '/home/hs/Data/Corpus/preprocessed_training_data_1600000.csv'
+            else:
+                file_name = './data/traindata/Sentiment140/pre-processed/preprocessed_training_data_' + str(
+                    parameters['test_data_size']) + '.csv'
+        elif data_type == 'test':
+            file_name = './data/testdata/preprocessed_test_data_359.csv'
+    elif stem == False:
+        if data_type == 'train':
+            if parameters['test_data_size'] == 160000:
+                os_name = get_os_name()
+                if os_name == "windows":
+                    file_name = 'C:/Corpus/preprocessed_training_data_nostem_160000.csv'
+                elif os_name == 'ubuntu':
+                    file_name = '/home/hs/Data/Corpus/preprocessed_training_data_nostem_160000.csv'
+            else:
+                file_name = './data/traindata/Sentiment140/pre-processed/preprocessed_training_data_nostem_' + str(
+                    parameters['test_data_size']) + '.csv'
+        elif data_type == 'test':
+            file_name = './data/testdata/preprocessed_test_data_nostem_359.csv'
+
     with open(file_name, 'r', encoding= 'ISO-8859-1') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         text, label = [], []
