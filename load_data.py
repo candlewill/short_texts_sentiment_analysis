@@ -65,10 +65,10 @@ def load_anew():
         words, arousal, valence = [], [], []
         for line in reader:
             words.append(line[0])
-            arousal.append(float(line[1]))
-            valence.append(float(line[2]))
+            valence.append(float(line[1]))
+            arousal.append(float(line[2]))
     logging.info('Loading anew lexicon completed')
-    return words, arousal, valence
+    return words, valence, arousal
 
 
 def load_extend_anew(D=False):
@@ -137,6 +137,44 @@ def load_processed_data(data_type='train', stem=True):
         elif data_type == 'test':
             file_name = './data/testdata/preprocessed_test_data_359.csv'
     elif stem == False:
+        if data_type == 'train':
+            if parameters['test_data_size'] == 160000:
+                os_name = get_os_name()
+                if os_name == "windows":
+                    file_name = 'C:/Corpus/preprocessed_training_data_nostem_160000.csv'
+                elif os_name == 'ubuntu':
+                    file_name = '/home/hs/Data/Corpus/preprocessed_training_data_nostem_160000.csv'
+            else:
+                file_name = './data/traindata/Sentiment140/pre-processed/preprocessed_training_data_nostem_' + str(
+                    parameters['test_data_size']) + '.csv'
+        elif data_type == 'test':
+            file_name = './data/testdata/preprocessed_test_data_nostem_359.csv'
+    with open(file_name, 'r', encoding='ISO-8859-1') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        text, label = [], []
+        for line in reader:
+            text.append(line[1])
+            label.append(int(line[0]))
+    logging.info('Load Data Completed')
+    return text, label
+
+
+def load_selected_data(data_type='train', stem=False):
+    logging.info('Start Loading Data')
+    if stem == False:
+        if data_type == 'train':
+            if parameters['test_data_size'] == 160000:
+                os_name = get_os_name()
+                if os_name == "windows":
+                    file_name = 'C:/Corpus/anew_part_of_nostem_160000.csv'
+                elif os_name == 'ubuntu':
+                    file_name = '/home/hs/Data/Corpus/anew_part_of_nostem_160000.csv'
+            else:
+                file_name = './data/traindata/Sentiment140/pre-processed/anew_part_of_nostem_' + str(
+                    parameters['test_data_size']) + '.csv'
+        elif data_type == 'test':
+            file_name = './data/testdata/anew_part_of_nostem_test.csv'
+    elif stem == True:
         if data_type == 'train':
             if parameters['test_data_size'] == 160000:
                 os_name = get_os_name()

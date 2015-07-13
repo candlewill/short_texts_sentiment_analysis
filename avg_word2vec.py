@@ -7,25 +7,25 @@ from sklearn.preprocessing import MinMaxScaler
 # The following skills is useful
 # train_test_split(np.array(texts), np.array(sentiemnt), test_size=0.2)
 
-x_train, y_train = load_processed_data()
-x_test, y_test = load_processed_data(data_type='test')
+x_train, y_train = load_processed_data(data_type='train', stem=False)
+x_test, y_test = load_processed_data(data_type='test', stem=False)
 
 from preprocess import preprocessor as preprocess
 
-n_dim = 300
+n_dim = 100
 scaling = False
 
 # Initialize model and build vocab
-# imdb_w2v = Word2Vec(size=n_dim, min_count=10)
-# imdb_w2v.build_vocab(x_train)
+imdb_w2v = Word2Vec(size=n_dim, min_count=10)
+imdb_w2v.build_vocab(x_train)
 
 # Train the model over train_reviews (this may take several minutes)
-# imdb_w2v.train(x_train)
+imdb_w2v.train(x_train)
 
 # Build word vector for training set by using the average value of all word vectors in the tweet, then scale
-from load_data import load_word_embedding
+# from load_data import load_word_embedding
 
-imdb_w2v = load_word_embedding()
+# imdb_w2v = load_word_embedding()
 
 def buildWordVector(text, size):
     vec = np.zeros(size).reshape((1, size))

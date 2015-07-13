@@ -352,3 +352,27 @@
 2015-07-09 21:22:41,823 - logger_manager - INFO - Use multinomial Naive bayes classifier
 2015-07-09 21:36:50,537 - logger_manager - INFO - Use multinomial Naive bayes classifier
 2015-07-09 22:07:37,652 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:19:18,185 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:19:41,654 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:20:11,062 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:20:29,195 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:20:46,774 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:34:31,885 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:37:16,999 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:37:27,291 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:37:48,011 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:38:22,338 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:42:16,085 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-10 16:43:47,541 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-12 19:33:08,260 - logger_manager - INFO - Start generating features
+2015-07-12 19:33:08,260 - logger_manager - INFO - [('analyzer', 'word'), ('binary', True), ('max_df', 0.5), ('max_features', 200), ('min_df', 0), ('ngram_range', (1, 1)), ('norm', 'l1'), ('preprocessor', <function preprocessor at 0x7fceb5b12e18>), ('sublinear_tf', True)]
+2015-07-12 19:33:08,261 - logger_manager - INFO - Training data size: 10000
+2015-07-12 19:33:10,958 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-12 19:33:35,284 - logger_manager - INFO - Start generating features
+2015-07-12 19:33:35,284 - logger_manager - INFO - [('analyzer', 'word'), ('binary', True), ('max_df', 0.5), ('max_features', 5000), ('min_df', 0), ('ngram_range', (1, 1)), ('norm', 'l1'), ('preprocessor', <function preprocessor at 0x7ff932201e18>), ('sublinear_tf', True)]
+2015-07-12 19:33:35,284 - logger_manager - INFO - Training data size: 10000
+2015-07-12 19:33:37,972 - logger_manager - INFO - Use multinomial Naive bayes classifier
+2015-07-12 19:34:53,155 - logger_manager - INFO - Start generating features
+2015-07-12 19:34:53,155 - logger_manager - INFO - [('analyzer', 'word'), ('binary', True), ('max_df', 0.5), ('max_features', 5000), ('min_df', 0), ('ngram_range', (1, 1)), ('norm', 'l1'), ('preprocessor', <function preprocessor at 0x7f6836262e18>), ('sublinear_tf', True)]
+2015-07-12 19:34:53,156 - logger_manager - INFO - Training data size: 160000
+2015-07-12 19:40:48,511 - logger_manager - INFO - Use multinomial Naive bayes classifier

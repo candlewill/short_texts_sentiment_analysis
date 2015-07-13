@@ -1,24 +1,28 @@
-from sklearn.manifold import TSNE
-import matplotlib.pyplot as plt
-import numpy as np
+import qrcode
+from qrcode.image.pure import PymagingImage
+import scipy
 
-food_vecs = np.array([[1, 2, 3, 1], [2, 3, 4, 4]])
-sports_vecs = np.array([[1, 1, 3, 1], [2, 3, 1, 4]])
-weather_vecs = np.array([[4, 1, 6, 1], [8, 3, 1, 4]])
 
-ts = TSNE(2)
-reduced_vecs = ts.fit_transform(np.concatenate((food_vecs, sports_vecs, weather_vecs)))
-
-# color points by word group to see if Word2Vec can separate them
-for i in range(len(reduced_vecs)):
-    if i < len(food_vecs):
-        # food words colored blue
-        color = 'b'
-    elif i >= len(food_vecs) and i < (len(food_vecs) + len(sports_vecs)):
-        # sports words colored red
-        color = 'r'
+def to_qrcode(texts):
+    qr = qrcode.QRCode(
+        version=7,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=1,
+        border=0,
+    )
+    if len(texts) <= 140:
+        qr.add_data(texts)
+        qr.make(fit=False)
+        img = qr.make_image()
+        return img
     else:
-        # weather words colored green
-        color = 'g'
-    plt.plot(reduced_vecs[i, 0], reduced_vecs[i, 1], marker='o', color=color, markersize=8)
-plt.show()
+        print('Texts too long :' + texts)
+        return
+
+
+if __name__ == '__main__':
+    img = to_qrcode('Hello')
+    a = list(img.getdata())
+    print(len(a), a)
+    with open('./data/pic/test.png', 'wb') as f:
+        img.save(f)
