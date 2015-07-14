@@ -9,7 +9,7 @@ for text, label in zip(texts, labels):
     text_qrcode = to_qrcode(text)
     text_qrcode = list(text_qrcode.getdata())
     feature_vec.append(np.append(label, text_qrcode))
-    i += 1
-    print(i)
 
-print(feature_vec)
+from save_data import csv_save
+
+csv_save(feature_vec, './data/traindata/qrcode.csv')

@@ -8,6 +8,7 @@ import os
 from gensim.models import Word2Vec
 import time as time
 from os_check import get_os_name
+import numpy as np
 
 # configure the logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -196,6 +197,19 @@ def load_selected_data(data_type='train', stem=False):
             label.append(int(line[0]))
     logging.info('Load Data Completed')
     return text, label
+
+
+def load_qrcode():
+    logging.info('Loading qrcode feature')
+    data_dir = './data/traindata/'
+    with open(os.path.join(data_dir, "qrcode.csv"), 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        labels, features = [], []
+        for line in reader:
+            labels.append(line[0])
+            features.append(line[1:])
+    logging.info('Loading qucode feature completed')
+    return np.float32(features), np.float32(labels)
 
 if __name__ == "__main__":
     st = time.time()
