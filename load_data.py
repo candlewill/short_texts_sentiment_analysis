@@ -201,8 +201,8 @@ def load_selected_data(data_type='train', stem=False):
 
 def load_qrcode():
     logging.info('Loading qrcode feature')
-    data_dir = './data/traindata/'
-    with open(os.path.join(data_dir, "qrcode.csv"), 'r') as csvfile:
+    data_dir = '../data/traindata/'
+    with open(os.path.join(data_dir, "qrcode_10000.csv"), 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         labels, features = [], []
         for line in reader:

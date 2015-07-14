@@ -7,9 +7,10 @@ feature_vec = []
 i = 0
 for text, label in zip(texts, labels):
     text_qrcode = to_qrcode(text)
-    text_qrcode = list(text_qrcode.getdata())
+    text_qrcode = np.array(list(text_qrcode.getdata()))
+    text_qrcode[text_qrcode > 0] = 1
     feature_vec.append(np.append(label, text_qrcode))
 
 from save_data import csv_save
 
-csv_save(feature_vec, './data/traindata/qrcode.csv')
+csv_save(feature_vec, './data/traindata/qrcode_20000.csv')
